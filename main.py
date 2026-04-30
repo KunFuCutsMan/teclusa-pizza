@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QApplication
 from control.tab_menu_controller import TabMenuController
 from vistas.app import Ui_Teclusa
 from modelos.platillo import RepoPlatilloLocal
+from modelos.seccion_menu import RepoSeccionMenuLocal
 
 import sys
 
@@ -22,6 +23,7 @@ class TeclusaApp(QApplication):
         self.tabMenuController = TabMenuController(
             ui=self.ui.tabMenu,
             platilloRepo= RepoPlatilloLocal(),
+            seccionMenuRepo= RepoSeccionMenuLocal(),
         )
 
     def show(self):

@@ -1,12 +1,13 @@
 from modelos.platillo import Platillo
-from modelos.repositorios import RepoPlatillo
+from modelos.repositorios import RepoPlatillo, RepoSeccionMenu
 from vistas.app import TabMenu
 
 class TabMenuController:
     
-    def __init__(self, ui: TabMenu, platilloRepo: RepoPlatillo):
+    def __init__(self, ui: TabMenu, platilloRepo: RepoPlatillo, seccionMenuRepo: RepoSeccionMenu):
         self.ui = ui
         self.platilloRepo = platilloRepo
+        self.seccionRepo = seccionMenuRepo
 
         self.ui.nmbPrecio.setMinimum(1)
         self.ui.nmbPrecio.setPrefix("$")
