@@ -1,10 +1,12 @@
 from modelos.platillo import Platillo
+from modelos.repositorios import RepoPlatillo
 from vistas.app import TabMenu
 
 class TabMenuController:
     
-    def __init__(self, ui: TabMenu):
+    def __init__(self, ui: TabMenu, platilloRepo: RepoPlatillo):
         self.ui = ui
+        self.platilloRepo = platilloRepo
 
         self.ui.nmbPrecio.setMinimum(1)
         self.ui.nmbPrecio.setPrefix("$")
@@ -12,7 +14,7 @@ class TabMenuController:
 
         self.ui.txtDescripcion.setAcceptRichText(False)
 
-        self.platilloAgregar = Platillo("", "", 0)
+        self.platilloAgregar = Platillo(id=0, nombre="", descripcion="", precio=0)
 
         self.setupEvents()
 
