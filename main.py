@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QApplication
 from control.tab_menu_controller import TabMenuController
 from vistas.app import Ui_Teclusa
-from modelos.platillo import RepoPlatilloLocal
-from modelos.seccion_menu import RepoSeccionMenuLocal
+from modelos.seccion_menu_repos import RepoSeccionMenuLocal
+from modelos.platillo_repos import RepoPlatilloLocal
 
 import sys
 

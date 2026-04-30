@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from .platillo import Platillo
+from .seccion_menu import SeccionMenu
 
 class RepoPlatillo(ABC):
     """
@@ -29,8 +30,6 @@ class RepoPlatillo(ABC):
     @abstractmethod
     def eliminaPlatillo(self, platillo: Platillo) -> None:
         pass
-
-from .seccion_menu import SeccionMenu
 
 class RepoSeccionMenu(ABC):
     """
