@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QApplication
-from vistas.app import Ui_Teclusa, TabMenu
+from control.tab_menu_controller import TabMenuController
+from vistas.app import Ui_Teclusa
 
 import sys
 
@@ -16,6 +17,8 @@ class TeclusaApp(QApplication):
         self.ui = Ui_Teclusa(
             title="TECLUSA Pizzeria"
         )
+
+        self.tabMenuController = TabMenuController(self.ui.tabMenu)
 
     def show(self):
         self.ui.show()
