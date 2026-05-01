@@ -1,3 +1,5 @@
+from PyQt5.QtWidgets import QTableView
+
 from modelos.platillo import Platillo
 from modelos.repositorios import RepoPlatillo, RepoSeccionMenu
 from modelos.platillo_table import PlatilloTableModel
@@ -24,7 +26,9 @@ class TabMenuController:
             list( map(lambda s: s.Nombre, self.seccionRepo.obtenSecciones()) )
         )
 
-        # self.ui.tblCatalogoAlimentos.setModel(self.tblCatalogoModel)
+        self.ui.tblCatalogoAlimentos.setSelectionMode( QTableView.SelectionMode.SingleSelection )
+        self.ui.tblCatalogoAlimentos.setSelectionBehavior( QTableView.SelectionBehavior.SelectRows )
+        self.ui.tblCatalogoAlimentos.setModel(self.tblCatalogoModel)
 
         self.platilloAgregar = Platillo(id=0, nombre="", descripcion="", precio=0)
 
