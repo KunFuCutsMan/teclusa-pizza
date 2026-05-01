@@ -10,10 +10,15 @@ class TabMenuController:
         self.seccionRepo = seccionMenuRepo
 
         self.ui.nmbPrecio.setMinimum(1)
+        self.ui.nmbPrecio.setMaximum(999_999)
         self.ui.nmbPrecio.setPrefix("$")
         self.ui.nmbPrecio.setSuffix(".00")
 
         self.ui.txtDescripcion.setAcceptRichText(False)
+
+        self.ui.cmbCategoriaPlatillo.addItems(
+            list( map(lambda s: s.Nombre, self.seccionRepo.obtenSecciones()) )
+        )
 
         self.platilloAgregar = Platillo(id=0, nombre="", descripcion="", precio=0)
 
@@ -27,6 +32,7 @@ class TabMenuController:
         self.ui.btnModificar.clicked.connect(self.onBtnModificarClick)
         self.ui.btnEliminar.clicked.connect(self.onBtnEliminarClick)
         self.ui.txtBuscarPlatillo.textEdited.connect(self.onPlatilloBusquedaChange)
+        self.ui.cmbCategoriaPlatillo.activated.connect(self.onCmbCategoriaChange)
 
     def onNombrePlatilloEdit(self, texto: str):
         self.platilloAgregar.Nombre = texto
@@ -41,6 +47,9 @@ class TabMenuController:
         pass
 
     def onBtnModificarClick(self):
+        pass
+
+    def onCmbCategoriaChange(self, index: int):
         pass
 
     def onBtnEliminarClick(self):
