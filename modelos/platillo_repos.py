@@ -5,7 +5,9 @@ class RepoPlatilloLocal(RepoPlatillo):
 
     def __init__(self):
         super().__init__()
-        self.platillos: dict[int, Platillo] = {}
+        self.platillos: dict[int, Platillo] = {
+            1: Platillo(1, "Pizza Pepperoni", "Está bien sabrosa", 119)
+        }
 
     def insertaPlatillo(self, platillo):
         nuevo = Platillo(
@@ -20,6 +22,9 @@ class RepoPlatilloLocal(RepoPlatillo):
             return nuevo
         
         return None
+    
+    def obtenPlatillos(self):
+        return list( self.platillos.values() )
     
     def modificaPlatillo(self, nuevo):
         if nuevo.Id in self.platillos.keys():

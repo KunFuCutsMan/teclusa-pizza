@@ -24,6 +24,10 @@ class RepoPlatillo(ABC):
         pass
 
     @abstractmethod
+    def obtenPlatillos(self) -> list[Platillo]:
+        pass
+
+    @abstractmethod
     def modificaPlatillo(self, nuevo: Platillo) -> None:
         pass
 

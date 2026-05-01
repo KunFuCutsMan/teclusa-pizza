@@ -1,5 +1,6 @@
 from modelos.platillo import Platillo
 from modelos.repositorios import RepoPlatillo, RepoSeccionMenu
+from modelos.platillo_table import PlatilloTableModel
 from vistas.app import TabMenu
 
 class TabMenuController:
@@ -8,6 +9,9 @@ class TabMenuController:
         self.ui = ui
         self.platilloRepo = platilloRepo
         self.seccionRepo = seccionMenuRepo
+        self.tblCatalogoModel = PlatilloTableModel(
+            platilloRepo=platilloRepo,
+        )
 
         self.ui.nmbPrecio.setMinimum(1)
         self.ui.nmbPrecio.setMaximum(999_999)
@@ -19,6 +23,8 @@ class TabMenuController:
         self.ui.cmbCategoriaPlatillo.addItems(
             list( map(lambda s: s.Nombre, self.seccionRepo.obtenSecciones()) )
         )
+
+        # self.ui.tblCatalogoAlimentos.setModel(self.tblCatalogoModel)
 
         self.platilloAgregar = Platillo(id=0, nombre="", descripcion="", precio=0)
 
