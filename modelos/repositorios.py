@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 
 from .platillo import Platillo
 from .seccion_menu import SeccionMenu
+from .estado_orden import EstadoOrden
+from .orden import OrdenMenu
 
 class RepoPlatillo(ABC):
     """
@@ -70,4 +72,57 @@ class RepoSeccionMenu(ABC):
 
     @abstractmethod
     def obtenSecciones(self) -> list[SeccionMenu]:
+        pass
+
+class RepoEstadoOrden(ABC):
+    """
+    # RepoEstadoOrden
+
+    Interfaz de repositorio de los estados de una orden.
+
+    Un repositorio es un patrón de programación que permite a la capa de lógica
+    interactuar con la capa de datos, sin tener que saber de dónde viene dicha
+    información. Cambiar la fuente de información solo depende en tener que
+    intercambiar el repositorio cuando se entrega a la capa de lógica.
+    """
+
+    @abstractmethod
+    def obtenEstado(self, id: int) -> Platillo | None:
+        "Obten el estado que tiene dicha ID"
+        pass
+
+    @abstractmethod
+    def obtenEstados(self) -> list[EstadoOrden]:
+        pass
+
+class RepoOrdenMenu(ABC):
+    """
+    # RepoOrdenMenu
+
+    Interfaz de repositorio de las ordenes registradas
+
+    Un repositorio es un patrón de programación que permite a la capa de lógica
+    interactuar con la capa de datos, sin tener que saber de dónde viene dicha
+    información. Cambiar la fuente de información solo depende en tener que
+    intercambiar el repositorio cuando se entrega a la capa de lógica.
+    """
+
+    @abstractmethod
+    def insertaOrden(self, orden: OrdenMenu) -> OrdenMenu | None:
+        pass
+
+    @abstractmethod
+    def obtenOrdenes(self) -> list[OrdenMenu]:
+        pass
+
+    @abstractmethod
+    def obtenOrden(self, id: int) -> OrdenMenu | None:
+        pass
+
+    @abstractmethod
+    def modificaOrden(self, orden: OrdenMenu) -> None:
+        pass
+
+    @abstractmethod
+    def eliminaOrden(self, orden: OrdenMenu) -> None:
         pass
