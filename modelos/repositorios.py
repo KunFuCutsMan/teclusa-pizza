@@ -28,6 +28,11 @@ class RepoPlatillo(ABC):
         pass
 
     @abstractmethod
+    def obtenPlatillo(self, id: int) -> Platillo | None:
+        "Obten el platillo que tiene dicha ID"
+        pass
+
+    @abstractmethod
     def modificaPlatillo(self, nuevo: Platillo) -> None:
         pass
 

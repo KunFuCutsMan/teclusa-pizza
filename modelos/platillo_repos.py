@@ -27,6 +27,12 @@ class RepoPlatilloLocal(RepoPlatillo):
     def obtenPlatillos(self):
         return list( self.platillos.values() )
     
+    def obtenPlatillo(self, id):
+        for p in self.platillos.values():
+            if p.Id == id:
+                return p
+        return None
+    
     def modificaPlatillo(self, nuevo):
         if nuevo.Id in self.platillos.keys():
             self.platillos[nuevo.Id] = nuevo

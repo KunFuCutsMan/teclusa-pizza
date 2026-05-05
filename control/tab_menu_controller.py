@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QTableView
+from PyQt5.QtCore import QModelIndex
 
 from modelos.platillo import Platillo
 from modelos.repositorios import RepoPlatillo, RepoSeccionMenu
@@ -44,6 +45,7 @@ class TabMenuController:
         self.ui.btnEliminar.clicked.connect(self.onBtnEliminarClick)
         self.ui.txtBuscarPlatillo.textEdited.connect(self.onPlatilloBusquedaChange)
         self.ui.cmbCategoriaPlatillo.activated.connect(self.onCmbCategoriaChange)
+        self.ui.tblCatalogoAlimentos.clicked.connect(self.onTablaRowSelected)
 
     def validaPlatilloAgregar(self) -> bool:
 
@@ -66,6 +68,20 @@ class TabMenuController:
         self.ui.nmbPrecio.setValue(0)
         self.ui.txtDescripcion.clear()
 
+    def rellenaFormularioPlatillo(self, platillo: Platillo):
+        self.ui.txtNombrePlatillo.setText(platillo.Nombre)
+        self.ui.nmbPrecio.setValue(platillo.Precio)
+        self.ui.txtDescripcion.setText(platillo.Descripcion)
+        self.ui.cmbCategoriaPlatillo.setCurrentIndex(platillo.SeccionMenu.Id - 1)
+        
+        self.platilloAgregar = Platillo(
+            id=platillo.Id,
+            nombre=platillo.Nombre,
+            descripcion=platillo.Descripcion,
+            precio=platillo.Precio,
+            seccion=platillo.SeccionMenu
+        )
+
     def onNombrePlatilloEdit(self, texto: str):
         self.platilloAgregar.Nombre = texto
 
@@ -87,7 +103,17 @@ class TabMenuController:
         self.vaciaFormularioPlatillo()
 
     def onBtnModificarClick(self):
-        pass
+        if self.platilloAgregar.Id <= 0:
+            # No sabemos que modificar
+            return None
+
+        if not self.validaPlatilloAgregar():
+            # Le falta un argumento al botón
+            return None
+        
+        self.platilloRepo.modificaPlatillo(self.platilloAgregar.copy())
+        self.tblCatalogoModel.actualizaVista()
+        self.vaciaFormularioPlatillo()
 
     def onCmbCategoriaChange(self, index: int):
         seccion = self.seccionRepo.obtenSecciones()[index]
@@ -98,3 +124,12 @@ class TabMenuController:
 
     def onPlatilloBusquedaChange(self, texto: str):
         pass
+
+    def onTablaRowSelected(self, selected: QModelIndex):
+        idSelected = selected.row() + 1
+        platillo = self.platilloRepo.obtenPlatillo(idSelected)
+        if platillo is None:
+            return None
+
+        self.rellenaFormularioPlatillo(platillo)
+
