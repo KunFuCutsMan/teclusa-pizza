@@ -123,7 +123,8 @@ class TabMenuController:
         pass
 
     def onPlatilloBusquedaChange(self, texto: str):
-        pass
+        self.tblCatalogoModel.filtra(texto)
+        self.tblCatalogoModel.actualizaVista()
 
     def onTablaRowSelected(self, selected: QModelIndex):
         indexID = self.tblCatalogoModel.createIndex( selected.row(), 0 )
