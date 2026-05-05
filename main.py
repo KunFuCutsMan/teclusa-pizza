@@ -20,10 +20,13 @@ class TeclusaApp(QApplication):
             title="TECLUSA Pizzeria"
         )
 
+        repoSecciones = RepoSeccionMenuLocal()
+        repoPlatillos = RepoPlatilloLocal(repoSecciones)
+
         self.tabMenuController = TabMenuController(
             ui=self.ui.tabMenu,
-            platilloRepo= RepoPlatilloLocal(),
-            seccionMenuRepo= RepoSeccionMenuLocal(),
+            platilloRepo= repoPlatillos,
+            seccionMenuRepo= repoSecciones,
         )
 
     def show(self):

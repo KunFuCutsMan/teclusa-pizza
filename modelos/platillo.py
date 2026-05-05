@@ -1,11 +1,13 @@
+from .seccion_menu import SeccionMenu
 
 class Platillo:
 
-    def __init__(self, id: int, nombre: str, descripcion: str, precio: int):
+    def __init__(self, id: int, nombre: str, descripcion: str, precio: int, seccion: SeccionMenu | None):
         self.__id = id
         self.__nombre = nombre
         self.__desc = descripcion
         self.__precio = precio
+        self.__seccion = seccion
 
     @property
     def Id(self): return self.__id
@@ -32,3 +34,9 @@ class Platillo:
     def Precio(self, value: int):
         if value >= 0:
             self.__precio = value
+
+    @property
+    def SeccionMenu(self): return self.__seccion
+
+    @SeccionMenu.setter
+    def SeccionMenu(self, value): self.__seccion = value

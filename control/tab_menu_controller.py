@@ -30,7 +30,8 @@ class TabMenuController:
         self.ui.tblCatalogoAlimentos.setSelectionBehavior( QTableView.SelectionBehavior.SelectRows )
         self.ui.tblCatalogoAlimentos.setModel(self.tblCatalogoModel)
 
-        self.platilloAgregar = Platillo(id=0, nombre="", descripcion="", precio=0)
+        self.platilloAgregar = Platillo(id=0, nombre="", descripcion="", precio=0, seccion=None)
+        self.onCmbCategoriaChange(0)
 
         self.setupEvents()
 
@@ -53,6 +54,9 @@ class TabMenuController:
             return False
         
         if self.platilloAgregar.Precio <= 0:
+            return False
+        
+        if self.platilloAgregar.SeccionMenu is None:
             return False
 
         return True
@@ -86,7 +90,8 @@ class TabMenuController:
         pass
 
     def onCmbCategoriaChange(self, index: int):
-        pass
+        seccion = self.seccionRepo.obtenSecciones()[index]
+        self.platilloAgregar.SeccionMenu = seccion
 
     def onBtnEliminarClick(self):
         pass
