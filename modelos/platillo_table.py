@@ -22,7 +22,7 @@ class PlatilloTableModel(QAbstractTableModel):
         if role != Qt.ItemDataRole.DisplayRole:
             return QVariant()
         
-        data = list( map( lambda p: (p.Nombre, p.Descripcion, "", p.Precio),
+        data = list( map( lambda p: (p.Nombre, p.Descripcion, p.SeccionMenu.Nombre, p.Precio),
         self.repo.obtenPlatillos() ) )
 
         return data[index.row()][index.column()]
