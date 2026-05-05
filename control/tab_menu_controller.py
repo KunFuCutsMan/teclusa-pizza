@@ -120,7 +120,17 @@ class TabMenuController:
         self.platilloAgregar.SeccionMenu = seccion
 
     def onBtnEliminarClick(self):
-        pass
+        if self.platilloAgregar.Id <= 0:
+            # No sabemos que eliminar
+            return None
+        
+        self.platilloRepo.eliminaPlatillo(self.platilloAgregar)
+        self.platilloAgregar = Platillo(
+            id=0, nombre="", descripcion="",
+            precio=0, seccion=None
+        )
+        self.vaciaFormularioPlatillo()
+        self.tblCatalogoModel.actualizaVista()
 
     def onPlatilloBusquedaChange(self, texto: str):
         self.tblCatalogoModel.filtra(texto)
