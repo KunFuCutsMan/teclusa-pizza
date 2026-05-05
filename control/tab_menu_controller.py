@@ -126,8 +126,8 @@ class TabMenuController:
         pass
 
     def onTablaRowSelected(self, selected: QModelIndex):
-        idSelected = selected.row() + 1
-        platillo = self.platilloRepo.obtenPlatillo(idSelected)
+        indexID = self.tblCatalogoModel.createIndex( selected.row(), 0 )
+        platillo = self.platilloRepo.obtenPlatillo(indexID.data())
         if platillo is None:
             return None
 

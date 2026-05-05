@@ -9,7 +9,7 @@ class PlatilloTableModel(QAbstractTableModel):
         self.repo = platilloRepo
 
         self.headers = [
-            "Nombre", "Descripción", "Categoría", "Precio"
+            "ID", "Nombre", "Descripción", "Categoría", "Precio"
         ]
     
     def rowCount(self, parent = ...):
@@ -22,7 +22,7 @@ class PlatilloTableModel(QAbstractTableModel):
         if role != Qt.ItemDataRole.DisplayRole:
             return QVariant()
         
-        data = list( map( lambda p: (p.Nombre, p.Descripcion, p.SeccionMenu.Nombre, p.Precio),
+        data = list( map( lambda p: (p.Id, p.Nombre, p.Descripcion, p.SeccionMenu.Nombre, p.Precio),
         self.repo.obtenPlatillos() ) )
 
         return data[index.row()][index.column()]
