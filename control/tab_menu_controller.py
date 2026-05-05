@@ -44,6 +44,24 @@ class TabMenuController:
         self.ui.txtBuscarPlatillo.textEdited.connect(self.onPlatilloBusquedaChange)
         self.ui.cmbCategoriaPlatillo.activated.connect(self.onCmbCategoriaChange)
 
+    def validaPlatilloAgregar(self) -> bool:
+
+        if self.platilloAgregar.Nombre.strip() == "":
+            return False
+
+        if self.platilloAgregar.Descripcion.strip() == "":
+            return False
+        
+        if self.platilloAgregar.Precio <= 0:
+            return False
+
+        return True
+    
+    def vaciaFormularioPlatillo(self):
+        self.ui.txtNombrePlatillo.setText("")
+        self.ui.nmbPrecio.setValue(0)
+        self.ui.txtDescripcion.clear()
+
     def onNombrePlatilloEdit(self, texto: str):
         self.platilloAgregar.Nombre = texto
 
@@ -54,7 +72,15 @@ class TabMenuController:
         self.platilloAgregar.Descripcion = self.ui.txtDescripcion.toPlainText().strip()
 
     def onBtnAgregarClick(self):
-        pass
+
+        if not self.validaPlatilloAgregar():
+            # Le falta un argumento al botón
+            return None
+        
+        self.platilloRepo.insertaPlatillo(self.platilloAgregar)
+        self.tblCatalogoModel.actualizaVista()
+
+        self.vaciaFormularioPlatillo()
 
     def onBtnModificarClick(self):
         pass

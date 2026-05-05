@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QAbstractTableModel, QVariant, Qt, QObject
+from PyQt5.QtCore import QAbstractTableModel, QVariant, Qt, QObject, QModelIndex
 
 from .repositorios import RepoPlatillo
 
@@ -34,3 +34,10 @@ class PlatilloTableModel(QAbstractTableModel):
     
     def flags(self, index):
         return Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEnabled
+    
+    def actualizaVista(self):
+        # Notify the view that the entire model has changed
+        top_left = self.index(0, 0)
+        bottom_right = self.index(self.rowCount() - 1, self.columnCount() - 1)
+        self.dataChanged.emit(top_left, bottom_right)
+        self.layoutChanged.emit()

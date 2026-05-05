@@ -11,17 +11,14 @@ class RepoPlatilloLocal(RepoPlatillo):
 
     def insertaPlatillo(self, platillo):
         nuevo = Platillo(
-            id = len(self.platillos.keys()),
+            id = len(self.platillos.keys()) + 1,
             descripcion = platillo.Descripcion,
             nombre = platillo.Nombre,
             precio = platillo.Precio
         )
 
-        if nuevo.Id not in self.platillos.keys():
-            self.platillos[nuevo.Id] = nuevo
-            return nuevo
-        
-        return None
+        self.platillos.update({nuevo.Id: nuevo})
+        return nuevo
     
     def obtenPlatillos(self):
         return list( self.platillos.values() )
