@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTabWidget
 from vistas.ventana_menu import Ui_VentanaMenu
+from vistas.ventana_supervision import Ui_FormSupervision
 
 # NOTA:
 #
@@ -32,8 +33,10 @@ class Ui_Teclusa(QWidget):
 
         # Crea y vincula las tabulaciones
         self.tabMenu = TabMenu()
+        self.tabSupervision = TabSupervision()
 
         self.tabs.addTab(self.tabMenu, "Menú")
+        self.tabs.addTab(self.tabSupervision, "Supervisión")
 
 class TabMenu(QWidget, Ui_VentanaMenu):
     """
@@ -42,6 +45,12 @@ class TabMenu(QWidget, Ui_VentanaMenu):
     Clase que representa a la intefaz gráfica `Ui_VentanaMenu`, responsable de
     manejar los eventos presentes en dicha interfaz.
     """
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+class TabSupervision(QWidget, Ui_FormSupervision):
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)

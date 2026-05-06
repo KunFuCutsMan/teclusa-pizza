@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FormSupervision</class>
+ <widget class="QWidget" name="FormSupervision">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>750</width><height>450</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>TECLUSA - Monitor de Cocina</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item><widget class="QLabel"><property name="text"><string>&lt;b&gt;Monitor de Órdenes Activas&lt;/b&gt;</string></property></widget></item>
+   <item>
+    <widget class="QTableWidget" name="tbl_estado_ordenes">
+     <property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property>
+     <column><property name="text"><string>No. Orden</string></property></column>
+     <column><property name="text"><string>Estado Actual</string></property></column>
+     <column><property name="text"><string>Total</string></property></column>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout">
+     <item><widget class="QPushButton" name="btn_estado_preparando"><property name="text"><string>👨‍🍳 Marcar "En Preparación"</string></property></widget></item>
+     <item><widget class="QPushButton" name="btn_estado_listo"><property name="text"><string>🛎️ Marcar "Lista para Entrega"</string></property></widget></item>
+     <item>
+      <widget class="QPushButton" name="btn_cancelar_orden">
+       <property name="text"><string>🚫 Cancelar Orden (Anular)</string></property>
+       <property name="styleSheet"><string notr="true">background-color: #f44336; color: white; font-weight: bold;</string></property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
