@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTabWidget
 from vistas.ventana_menu import Ui_VentanaMenu
 from vistas.ventana_supervision import Ui_FormSupervision
+from vistas.ventana_tomar_orden import Ui_FormTomarOrden
 
 # NOTA:
 #
@@ -34,7 +35,9 @@ class Ui_Teclusa(QWidget):
         # Crea y vincula las tabulaciones
         self.tabMenu = TabMenu()
         self.tabSupervision = TabSupervision()
+        self.tabTomarOrden = TabTomarOrden()
 
+        self.tabs.addTab(self.tabTomarOrden, "Tomar Ordenes")
         self.tabs.addTab(self.tabMenu, "Menú")
         self.tabs.addTab(self.tabSupervision, "Supervisión")
 
@@ -50,6 +53,12 @@ class TabMenu(QWidget, Ui_VentanaMenu):
         self.setupUi(self)
 
 class TabSupervision(QWidget, Ui_FormSupervision):
+
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+class TabTomarOrden(QWidget, Ui_FormTomarOrden):
 
     def __init__(self):
         super().__init__()

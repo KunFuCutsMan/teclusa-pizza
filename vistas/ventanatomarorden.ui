@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FormTomarOrden</class>
+ <widget class="QWidget" name="FormTomarOrden">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>950</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>TECLUSA - Crear Nueva Orden</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_orden">
+   <item>
+    <layout class="QVBoxLayout" name="lay_menu_izq">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>&lt;b&gt;Catálogo de Menú&lt;/b&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="tbl_menu_disponible">
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <column>
+        <property name="text">
+         <string>Platillo</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Descripción</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Precio</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_ver_imagen">
+       <property name="text">
+        <string>🖼️ Ver Imagen del Platillo Seleccionado</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QFormLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Notas (Ej. Sin cebolla):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="txt_notas_cliente">
+         <property name="placeholderText">
+          <string>Opcional...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Cantidad:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <layout class="QHBoxLayout">
+         <item>
+          <widget class="QSpinBox" name="spin_cantidad">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_add_platillo">
+           <property name="text">
+            <string>➕ Añadir a Orden</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="lay_orden_der">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>&lt;b&gt;Desglose de Orden Actual&lt;/b&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="tbl_orden_actual">
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <column>
+        <property name="text">
+         <string>Cant</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Platillo</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Notas Extras</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Subtotal</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_eliminar_platillo">
+       <property name="text">
+        <string>❌ Eliminar Platillo Seleccionado</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbl_total">
+       <property name="styleSheet">
+        <string notr="true">font-size: 22px; font-weight: bold; color: #2E7D32;</string>
+       </property>
+       <property name="text">
+        <string>Total a Pagar: $0.00</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_crear_orden">
+       <property name="styleSheet">
+        <string notr="true">background-color: #4CAF50; color: white; padding: 15px; font-size: 14px; font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>✅ CONFIRMAR Y ENVIAR A COCINA</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
