@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>950</width>
-    <height>600</height>
+    <width>768</width>
+    <height>498</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,31 +24,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tbl_menu_disponible">
+      <widget class="QTableView" name="tbl_menu_disponible">
        <property name="selectionBehavior">
         <enum>QAbstractItemView::SelectRows</enum>
        </property>
-       <column>
-        <property name="text">
-         <string>Platillo</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Descripción</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Precio</string>
-        </property>
-       </column>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btn_ver_imagen">
        <property name="text">
-        <string>🖼️ Ver Imagen del Platillo Seleccionado</string>
+        <string>Ver Imagen del Platillo Seleccionado</string>
        </property>
       </widget>
      </item>
@@ -87,7 +72,7 @@
          <item>
           <widget class="QPushButton" name="btn_add_platillo">
            <property name="text">
-            <string>➕ Añadir a Orden</string>
+            <string>Añadir a Orden</string>
            </property>
           </widget>
          </item>
@@ -107,36 +92,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tbl_orden_actual">
+      <widget class="QTableView" name="tbl_orden_actual">
        <property name="selectionBehavior">
         <enum>QAbstractItemView::SelectRows</enum>
        </property>
-       <column>
-        <property name="text">
-         <string>Cant</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Platillo</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Notas Extras</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Subtotal</string>
-        </property>
-       </column>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btn_eliminar_platillo">
        <property name="text">
-        <string>❌ Eliminar Platillo Seleccionado</string>
+        <string>Eliminar Platillo Seleccionado</string>
        </property>
       </widget>
      </item>
@@ -159,7 +124,7 @@
         <string notr="true">background-color: #4CAF50; color: white; padding: 15px; font-size: 14px; font-weight: bold;</string>
        </property>
        <property name="text">
-        <string>✅ CONFIRMAR Y ENVIAR A COCINA</string>
+        <string>CONFIRMAR Y ENVIAR A COCINA</string>
        </property>
       </widget>
      </item>
