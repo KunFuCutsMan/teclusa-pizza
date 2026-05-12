@@ -8,13 +8,11 @@ from vistas.app import TabMenu
 
 class TabMenuController:
     
-    def __init__(self, ui: TabMenu, platilloRepo: RepoPlatillo, seccionMenuRepo: RepoSeccionMenu):
+    def __init__(self, ui: TabMenu, platilloRepo: RepoPlatillo, seccionMenuRepo: RepoSeccionMenu, platilloTableModel: PlatilloTableModel):
         self.ui = ui
         self.platilloRepo = platilloRepo
         self.seccionRepo = seccionMenuRepo
-        self.tblCatalogoModel = PlatilloTableModel(
-            platilloRepo=platilloRepo,
-        )
+        self.tblCatalogoModel = platilloTableModel
 
         self.ui.nmbPrecio.setMinimum(1)
         self.ui.nmbPrecio.setMaximum(999_999)
