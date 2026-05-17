@@ -1,9 +1,8 @@
-import sqlite3
+from conn import con
 
 # La base de datos está graficada en el archivo "Diagrama Base DatosTECLUSA Pizza.drawio"
 # Se puede ver el archivo en https://app.diagrams.net/
 if __name__ == "__main__":
-    con = sqlite3.connect("./database.db")
     cur = con.cursor()
     
     cur.execute("""
@@ -63,3 +62,12 @@ if __name__ == "__main__":
                 CHECK( Cantidad > 0 )
         )
     """)
+
+    cur.executemany("INSERT INTO EstadosOrdenes VALUES(?, ?)",[
+        (1, "En espera"),
+        (2, "En Proceso"),
+        (3, "Lista"),
+        (4, "Entregada"),
+        (5, "Cancelada"),
+    ])
+    con.commit()

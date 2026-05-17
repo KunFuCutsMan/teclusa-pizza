@@ -1,3 +1,5 @@
+from sqlite3 import Cursor
+
 from .repositorios import RepoEstadoOrden
 from .estado_orden import EstadoOrden
 
@@ -20,3 +22,22 @@ class RepoEstadoOrdenLocal(RepoEstadoOrden):
 
     def obtenEstados(self):
         return list(self.estados)
+
+
+class RepoEstadoOrdenDB(RepoEstadoOrden):
+
+    def __init__(self, cur: Cursor):
+        self.cur = cur
+        self.cur.row_factory = self.__estadoOrden_factory
+
+    def __estadoOrden_factory(self, cursor, row):
+        id, nombre = row
+        return EstadoOrden(id=id, nombre=nombre)
+
+    def obtenEstado(self, id):
+        res = self.cur.execute("SELECT * FROM EstadosOrdenes WHERE EstadoOrdenID = ?", (id,))
+        return res.fetchone()
+    
+    def obtenEstados(self):
+        res = self.cur.execute("SELECT * FROM EstadosOrdenes")
+        return res.fetchall()

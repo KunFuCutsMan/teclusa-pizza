@@ -87,7 +87,7 @@ class RepoEstadoOrden(ABC):
     """
 
     @abstractmethod
-    def obtenEstado(self, id: int) -> Platillo | None:
+    def obtenEstado(self, id: int) -> EstadoOrden | None:
         "Obten el estado que tiene dicha ID"
         pass
 
