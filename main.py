@@ -2,9 +2,11 @@ from PyQt5.QtWidgets import QApplication
 from control.tab_menu_controller import TabMenuController
 from control.tab_ordenes_controller import TabOrdenesController
 from vistas.app import Ui_Teclusa
-from modelos.seccion_menu_repos import RepoSeccionMenuLocal
-from modelos.platillo_repos import RepoPlatilloLocal
+from modelos.seccion_menu_repos import RepoSeccionMenuDB
+from modelos.platillo_repos import RepoPlatilloDB
 from modelos.platillo_table import PlatilloTableModel
+
+from db.conn import con
 
 import sys
 
@@ -22,8 +24,8 @@ class TeclusaApp(QApplication):
             title="TECLUSA Pizzeria"
         )
 
-        repoSecciones = RepoSeccionMenuLocal()
-        repoPlatillos = RepoPlatilloLocal(repoSecciones)
+        repoSecciones = RepoSeccionMenuDB(con.cursor())
+        repoPlatillos = RepoPlatilloDB(cur=con.cursor(), secciones=repoSecciones)
 
         platilloTableModel = PlatilloTableModel(
             platilloRepo=repoPlatillos

@@ -71,3 +71,11 @@ if __name__ == "__main__":
         (5, "Cancelada"),
     ])
     con.commit()
+
+    cur.executemany("INSERT INTO SeccionesMenu VALUES(?, ?)", [
+        (1, "Platos Principales"),
+        (2, "Entradas"),
+        (3, "Aperititos"),
+        (4, "Bebidas"),
+    ])
+    con.commit()

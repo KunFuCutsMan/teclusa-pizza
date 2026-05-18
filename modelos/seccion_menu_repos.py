@@ -1,3 +1,5 @@
+from sqlite3 import Cursor
+
 from .seccion_menu import SeccionMenu
 from .repositorios import RepoSeccionMenu
 
@@ -24,3 +26,29 @@ class RepoSeccionMenuLocal(RepoSeccionMenu):
     def obtenSecciones(self):
         return list(self.secciones.values())
 
+class RepoSeccionMenuDB(RepoSeccionMenu):
+
+    def __init__(self, cur: Cursor):
+        self.cur = cur
+        self.cur.row_factory = self.__seccionMenu_factory
+    
+    def __seccionMenu_factory(self, cursor, row):
+        id, nombre = row
+        return SeccionMenu(id=id, nombre=nombre)
+    
+    def insertaSeccion(self, seccion):
+        return super().insertaSeccion(seccion)
+    
+    def modificaSeccion(self, nuevo):
+        return super().modificaSeccion(nuevo)
+    
+    def eliminaSeccion(self, seccion):
+        return super().eliminaSeccion(seccion)
+    
+    def obtenSeccion(self, id):
+        res = self.cur.execute("SELECT * FROM SeccionesMenu where SeccionID = ?", (id,))
+        return res.fetchone()
+    
+    def obtenSecciones(self):
+        res = self.cur.execute("SELECT * FROM SeccionesMenu")
+        return res.fetchall()

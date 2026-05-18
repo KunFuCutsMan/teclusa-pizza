@@ -74,6 +74,10 @@ class RepoSeccionMenu(ABC):
     def obtenSecciones(self) -> list[SeccionMenu]:
         pass
 
+    @abstractmethod
+    def obtenSeccion(self, id) -> SeccionMenu | None:
+        pass
+
 class RepoEstadoOrden(ABC):
     """
     # RepoEstadoOrden

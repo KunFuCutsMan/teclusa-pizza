@@ -1,3 +1,5 @@
+from sqlite3 import Cursor
+
 from .platillo import Platillo
 from .repositorios import RepoPlatillo
 
@@ -40,3 +42,39 @@ class RepoPlatilloLocal(RepoPlatillo):
     def eliminaPlatillo(self, platillo):
         if platillo.Id in self.platillos.keys():
             self.platillos.pop(platillo.Id)
+
+class RepoPlatilloDB(RepoPlatillo):
+    
+    def __init__(self, cur: Cursor, secciones: RepoSeccionMenu):
+        super().__init__()
+        self.secciones = secciones
+        self.cur = cur
+        self.cur.row_factory = self.__platillo_factory
+
+    def __platillo_factory(self, cursor, row):
+        id, nombre, desc, precio, seccionID = row
+        seccion = self.secciones.obtenSeccion(seccionID)
+        return Platillo(
+            id=id,
+            nombre=nombre,
+            descripcion=desc,
+            precio=precio,
+            seccion=seccion
+        )
+    
+    def insertaPlatillo(self, platillo):
+        return super().insertaPlatillo(platillo)
+    
+    def modificaPlatillo(self, nuevo):
+        return super().modificaPlatillo(nuevo)
+
+    def eliminaPlatillo(self, platillo):
+        return super().eliminaPlatillo(platillo)
+    
+    def obtenPlatillo(self, id):
+        res = self.cur.execute("SELECT * FROM Platillos WHERE PlatilloID = ?", (id,))
+        return res.fetchone()
+    
+    def obtenPlatillos(self):
+        res = self.cur.execute("SELECT * FROM Platillos")
+        return res.fetchall()

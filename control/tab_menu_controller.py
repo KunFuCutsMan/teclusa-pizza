@@ -114,7 +114,7 @@ class TabMenuController:
         self.vaciaFormularioPlatillo()
 
     def onCmbCategoriaChange(self, index: int):
-        seccion = self.seccionRepo.obtenSecciones()[index]
+        seccion = self.seccionRepo.obtenSeccion(index + 1)
         self.platilloAgregar.SeccionMenu = seccion
 
     def onBtnEliminarClick(self):
