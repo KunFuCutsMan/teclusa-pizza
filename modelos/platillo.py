@@ -49,3 +49,18 @@ class Platillo:
             precio=self.Precio,
             seccion=self.SeccionMenu
         )
+    
+def validaPlatillo(platillo: Platillo) -> bool:
+    if platillo.Nombre.strip() == "":
+        return False
+
+    if platillo.Descripcion.strip() == "":
+        return False
+        
+    if platillo.Precio <= 0:
+        return False
+        
+    if platillo.SeccionMenu is None:
+        return False
+
+    return True

@@ -40,6 +40,7 @@ class TeclusaApp(QApplication):
 
         self.tabOrdenesController = TabOrdenesController(
             ui=self.ui.tabTomarOrden,
+            repoPlatillo=repoPlatillos,
             platilloTableModel=platilloTableModel,
         )
 

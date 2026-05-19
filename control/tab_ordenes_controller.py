@@ -1,19 +1,24 @@
 from PyQt5.QtWidgets import QTableView
 from PyQt5.QtCore import QModelIndex
 
+from modelos.platillo import Platillo
 from modelos.platillo_table import PlatilloTableModel
+from modelos.repositorios import RepoPlatillo
 from vistas.app import TabTomarOrden
 
 class TabOrdenesController:
 
-    def __init__(self, ui: TabTomarOrden, platilloTableModel: PlatilloTableModel):
+    def __init__(self, ui: TabTomarOrden, repoPlatillo: RepoPlatillo, platilloTableModel: PlatilloTableModel):
         self.ui = ui
 
         self.platilloTableModel = platilloTableModel
+        self.platilloRepo = repoPlatillo
 
         self.ui.tbl_menu_disponible.setSelectionMode( QTableView.SelectionMode.SingleSelection )
         self.ui.tbl_menu_disponible.setSelectionBehavior( QTableView.SelectionBehavior.SelectRows )
         self.ui.tbl_menu_disponible.setModel(self.platilloTableModel)
+
+        self.platilloSeleccionado = Platillo(0, "", "", 0, None)
 
     def setupEvents(self):
         self.ui.btn_ver_imagen.clicked.connect(self.onVerImagenClick)
@@ -45,7 +50,12 @@ class TabOrdenesController:
         pass
 
     def onMenuDisponibleRowClick(self, selected: QModelIndex):
-        pass
+        indexID = self.tblCatalogoModel.createIndex( selected.row(), 0 )
+        platillo = self.platilloRepo.obtenPlatillo(indexID.data())
+        if platillo is None:
+            return
+
+        self.platilloSeleccionado = platillo
 
     def onOrdenActualRowClick(self, selected: QModelIndex):
         pass

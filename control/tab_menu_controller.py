@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QTableView
 from PyQt5.QtCore import QModelIndex
 
-from modelos.platillo import Platillo
+from modelos.platillo import Platillo, validaPlatillo
 from modelos.repositorios import RepoPlatillo, RepoSeccionMenu
 from modelos.platillo_table import PlatilloTableModel
 from vistas.app import TabMenu
@@ -44,22 +44,6 @@ class TabMenuController:
         self.ui.txtBuscarPlatillo.textEdited.connect(self.onPlatilloBusquedaChange)
         self.ui.cmbCategoriaPlatillo.activated.connect(self.onCmbCategoriaChange)
         self.ui.tblCatalogoAlimentos.clicked.connect(self.onTablaRowSelected)
-
-    def validaPlatilloAgregar(self) -> bool:
-
-        if self.platilloAgregar.Nombre.strip() == "":
-            return False
-
-        if self.platilloAgregar.Descripcion.strip() == "":
-            return False
-        
-        if self.platilloAgregar.Precio <= 0:
-            return False
-        
-        if self.platilloAgregar.SeccionMenu is None:
-            return False
-
-        return True
     
     def vaciaFormularioPlatillo(self):
         self.ui.txtNombrePlatillo.setText("")
@@ -91,7 +75,7 @@ class TabMenuController:
 
     def onBtnAgregarClick(self):
 
-        if not self.validaPlatilloAgregar():
+        if not validaPlatillo(self.platilloAgregar):
             # Le falta un argumento al botón
             return None
         
@@ -105,7 +89,7 @@ class TabMenuController:
             # No sabemos que modificar
             return None
 
-        if not self.validaPlatilloAgregar():
+        if not validaPlatillo(self.platilloAgregar):
             # Le falta un argumento al botón
             return None
         
