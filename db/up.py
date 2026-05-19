@@ -15,6 +15,7 @@ if __name__ == "__main__":
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Ordenes(
             OrdenID INTEGER PRIMARY KEY AUTOINCREMENT,
+            Notas text NOT NULL,
             FechaCreacion DATETIME NOT NULL,
             EstadoOrdenID int NOT NULL,
             CONSTRAINT fk_Ordenes_EstadosOrdenes
