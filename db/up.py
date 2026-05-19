@@ -7,14 +7,14 @@ if __name__ == "__main__":
     
     cur.execute("""
         CREATE TABLE IF NOT EXISTS EstadosOrdenes(
-            EstadoOrdenID int PRIMARY KEY,
+            EstadoOrdenID INTEGER PRIMARY KEY AUTOINCREMENT,
             Nombre text NOT NULL
         )
     """)
     
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Ordenes(
-            OrdenID int PRIMARY KEY,
+            OrdenID INTEGER PRIMARY KEY AUTOINCREMENT,
             FechaCreacion DATETIME NOT NULL,
             EstadoOrdenID int NOT NULL,
             CONSTRAINT fk_Ordenes_EstadosOrdenes
@@ -25,14 +25,14 @@ if __name__ == "__main__":
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS SeccionesMenu(
-            SeccionID int PRIMARY KEY,
+            SeccionID INTEGER PRIMARY KEY AUTOINCREMENT,
             Nombre text NOT NULL
         )
     """)
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Platillos(
-            PlatilloID int PRIMARY KEY,
+            PlatilloID INTEGER PRIMARY KEY AUTOINCREMENT,
             Nombre text NOT NULL,
             Descripcion text NOT NULL,
             Precio int NOT NULL,

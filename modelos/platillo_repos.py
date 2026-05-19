@@ -63,13 +63,37 @@ class RepoPlatilloDB(RepoPlatillo):
         )
     
     def insertaPlatillo(self, platillo):
-        return super().insertaPlatillo(platillo)
+        self.cur.execute("INSERT INTO Platillos (Nombre, Descripcion, Precio, SeccionID) VALUES (?, ?, ?, ?)", (
+            platillo.Nombre,
+            platillo.Descripcion,
+            platillo.Precio,
+            platillo.SeccionMenu.Id
+        ))
+        self.cur.connection.commit()
+
+        if self.cur.lastrowid is not None:
+            return platillo.copy(id=self.cur.lastrowid)
+        return None
     
     def modificaPlatillo(self, nuevo):
-        return super().modificaPlatillo(nuevo)
+        if nuevo.Id == 0:
+            return
+
+        self.cur.execute("UPDATE OR IGNORE Platillos SET (Nombre, Descripcion, Precio, SeccionID) = (?, ?, ?, ?) WHERE PlatilloID = ?", (
+            nuevo.Nombre,
+            nuevo.Descripcion,
+            nuevo.Precio,
+            nuevo.SeccionMenu.Id,
+            nuevo.Id
+        ))
 
     def eliminaPlatillo(self, platillo):
-        return super().eliminaPlatillo(platillo)
+        if platillo.Id == 0:
+            return
+        
+        self.cur.execute("DELETE FROM Platillos WHERE PlatilloID = ?", (
+            platillo.Id,
+        ))
     
     def obtenPlatillo(self, id):
         res = self.cur.execute("SELECT * FROM Platillos WHERE PlatilloID = ?", (id,))

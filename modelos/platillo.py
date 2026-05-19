@@ -41,9 +41,9 @@ class Platillo:
     @SeccionMenu.setter
     def SeccionMenu(self, value): self.__seccion = value
 
-    def copy(self):
+    def copy(self, id: int | None = None):
         return Platillo(
-            id=self.Id,
+            id= id if id is not None else self.Id,
             nombre=self.Nombre,
             descripcion=self.Descripcion,
             precio=self.Precio,
