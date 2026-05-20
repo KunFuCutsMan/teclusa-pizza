@@ -57,7 +57,7 @@ class Ui_FormTomarOrden(object):
         self.label3 = QtWidgets.QLabel(FormTomarOrden)
         self.label3.setObjectName("label3")
         self.lay_orden_der.addWidget(self.label3)
-        self.tbl_orden_actual = QtWidgets.QTableView(FormTomarOrden)
+        self.tbl_orden_actual = QtWidgets.QTreeView(FormTomarOrden)
         self.tbl_orden_actual.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.tbl_orden_actual.setObjectName("tbl_orden_actual")
         self.lay_orden_der.addWidget(self.tbl_orden_actual)

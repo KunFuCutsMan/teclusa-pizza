@@ -1,9 +1,11 @@
 from PyQt5.QtWidgets import QTableView
 from PyQt5.QtCore import QModelIndex
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 from modelos.platillo import Platillo
 from modelos.platillo_table import PlatilloTableModel
 from modelos.repositorios import RepoPlatillo
+from modelos.menu_actual_model import MenuActualModel
 from vistas.app import TabTomarOrden
 
 class TabOrdenesController:
@@ -19,6 +21,14 @@ class TabOrdenesController:
         self.ui.tbl_menu_disponible.setModel(self.platilloTableModel)
 
         self.platilloSeleccionado = Platillo(0, "", "", 0, None)
+        self.textoNotas = ""
+        self.cantidadPlatillos = 1
+
+        self.modeloOrden = MenuActualModel()
+
+        self.ui.tbl_orden_actual.setModel(self.modeloOrden)
+
+        self.setupEvents()
 
     def setupEvents(self):
         self.ui.btn_ver_imagen.clicked.connect(self.onVerImagenClick)
@@ -28,20 +38,29 @@ class TabOrdenesController:
         self.ui.btn_eliminar_platillo.clicked.connect(self.onEliminarPlatilloClick)
         self.ui.btn_crear_orden.clicked.connect(self.onCrearOrdenClick)
 
-        self.ui.tbl_menu_disponible.clicked.conect(self.onMenuDisponibleRowClick)
+        self.ui.tbl_menu_disponible.clicked.connect(self.onMenuDisponibleRowClick)
         self.ui.tbl_orden_actual.clicked.connect(self.onOrdenActualRowClick)
     
     def onVerImagenClick(self):
         pass
 
     def onNotasClientesChange(self, texto: str):
-        pass
+        self.textoNotas = texto
 
     def onCantidadChange(self, value: int):
-        pass
+        self.cantidadPlatillos = value
 
     def onAddPlatilloClick(self):
-        pass
+        if self.cantidadPlatillos < 1:
+            return
+        
+        if self.platilloSeleccionado.Id == 0:
+            return
+        
+        self.modeloOrden.insertaPlatillo(
+            platillo=self.platilloSeleccionado,
+            cantidad=self.cantidadPlatillos,
+            notas=self.textoNotas)
 
     def onEliminarPlatilloClick(self):
         pass
@@ -50,7 +69,7 @@ class TabOrdenesController:
         pass
 
     def onMenuDisponibleRowClick(self, selected: QModelIndex):
-        indexID = self.tblCatalogoModel.createIndex( selected.row(), 0 )
+        indexID = self.platilloTableModel.createIndex( selected.row(), 0 )
         platillo = self.platilloRepo.obtenPlatillo(indexID.data())
         if platillo is None:
             return
@@ -58,4 +77,7 @@ class TabOrdenesController:
         self.platilloSeleccionado = platillo
 
     def onOrdenActualRowClick(self, selected: QModelIndex):
-        pass
+        item = self.modeloOrden.itemFromIndex(selected)
+
+        if item.isEditable():
+            print("Es editable")
