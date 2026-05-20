@@ -42,7 +42,6 @@ class MenuActualModel(QStandardItemModel):
         
         return False
 
-
     def headerData(self, section, orientation, role = ...):
         return ""
     
@@ -68,6 +67,14 @@ class MenuActualModel(QStandardItemModel):
         
         alimentoItem: ItemOrden = self.root.child(parentIndex.row(), parentIndex.column())
         alimentoItem.cantidad = cantidad
+
+    def obtenTotal(self):
+        total = 0
+        for row in range(self.root.rowCount()):
+            item: ItemOrden = self.root.child(row, 0)
+            total += item.subtotal
+        
+        return total
 
 class ItemOrden(QStandardItem):
 

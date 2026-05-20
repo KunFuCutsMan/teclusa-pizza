@@ -63,7 +63,11 @@ class TabOrdenesController:
         self.ui.txt_notas_cliente.setText("")
         self.ui.spin_cantidad.setValue(1)
 
+        self.actualizaLabelTotal()
+
     def onEliminarPlatilloClick(self):
+
+        self.actualizaLabelTotal()
         pass
 
     def onCrearOrdenClick(self):
@@ -82,3 +86,10 @@ class TabOrdenesController:
         
         if item.isEditable():
             self.modeloOrden.setData(item.index(), item.text())
+
+        self.actualizaLabelTotal()
+
+    def actualizaLabelTotal(self):
+        total = self.modeloOrden.obtenTotal()
+        self.ui.lbl_total.setText(f"Total a Pagar: ${total:<.2f}")
+        pass
