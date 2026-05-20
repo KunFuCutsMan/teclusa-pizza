@@ -1,6 +1,4 @@
-from enum import Enum
-
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QModelIndex
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 from .platillo import Platillo
@@ -16,7 +14,6 @@ class MenuActualModel(QStandardItemModel):
     def insertaPlatillo(self, platillo: Platillo, cantidad: int, notas: str):
 
         item = ItemOrden(platillo, cantidad, notas)
-        item.setup()
 
         empty = QStandardItem()
         empty.setEnabled(False)
@@ -28,44 +25,82 @@ class MenuActualModel(QStandardItemModel):
     def setData(self, index, value, role = ...):
         match index.row():
             case 0:
-                self.editaNotas(value)
+                self.editaNotas(value, index)
+                self.dataChanged.emit(index, index)
+                return True
             case 1:
-                self.editaCantidad(value)
-            case 2:
-                self.editaPrecio(value)
+                self.editaCantidad(value, index)
+                self.dataChanged.emit(index, index)
+                return True
+        
+        return False
+
 
     def headerData(self, section, orientation, role = ...):
         return ""
     
-    def editaNotas(self, text: str):
-        self.notas
-        pass
+    def editaNotas(self, text: str, index: QModelIndex):
+        parentIndex = index.parent()
+        if not parentIndex.isValid():
+            return
+        
+        alimentoItem: ItemOrden = self.root.child(parentIndex.row(), parentIndex.column())
+        alimentoItem.notas = text
 
-    def editaCantidad(self, value: str):
-        pass
-
-    def editaPrecio(self, value: str):
-        pass
+    def editaCantidad(self, value: str, index: QModelIndex):
+        if not value.isdecimal() or value.find('.') != -1 or value.find(',') != -1:
+            return
+    
+        cantidad = int(value)
+        if cantidad < 1:
+            return
+        
+        parentIndex = index.parent()
+        if not parentIndex.isValid():
+            return
+        
+        alimentoItem: ItemOrden = self.root.child(parentIndex.row(), parentIndex.column())
+        alimentoItem.cantidad = cantidad
 
 class ItemOrden(QStandardItem):
 
     def __init__(self, platillo: Platillo, cantidad: int, notas: str):
         super().__init__()
 
-        self.platillo = platillo
-        self.cantidad = cantidad
-        self.notas = notas
+        self.__platillo = platillo
+        self.__cantidad = cantidad
+        self.__notas = notas
 
         self.txtNotas = QStandardItem(self.notas)
         self.txtCantidad = QStandardItem(str(self.cantidad))
-        self.txtPrecio = QStandardItem(str(self.platillo.Precio))
+        self.txtPrecio = QStandardItem(str(self.__platillo.Precio))
         self.txtSubtotal = QStandardItem(str(self.subtotal))
         self.txtSubtotal.setEditable(False)
 
         self.setup()
 
     @property
+    def platillo(self): return self.__platillo
+
+    @property
     def subtotal(self): return self.platillo.Precio * self.cantidad
+
+    @property
+    def cantidad(self): return self.__cantidad
+
+    @property
+    def notas(self): return self.__notas
+
+    @cantidad.setter
+    def cantidad(self, value: int):
+        self.__cantidad = value
+        self.txtCantidad.setText(str(value))
+        self.txtSubtotal.setText(str(self.subtotal))
+
+    @notas.setter
+    def notas(self, value: str):
+        self.__notas = value
+        self.txtNotas.setText(value)
 
     def setup(self):
         self.setText(self.platillo.Nombre)

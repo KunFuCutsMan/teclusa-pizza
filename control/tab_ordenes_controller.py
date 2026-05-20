@@ -78,6 +78,6 @@ class TabOrdenesController:
 
     def onOrdenActualRowClick(self, selected: QModelIndex):
         item = self.modeloOrden.itemFromIndex(selected)
-
+        
         if item.isEditable():
-            print("Es editable")
+            self.modeloOrden.setData(item.index(), item.text())
