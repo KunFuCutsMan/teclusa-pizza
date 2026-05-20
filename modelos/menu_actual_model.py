@@ -1,15 +1,20 @@
 from PyQt5.QtCore import Qt, QModelIndex
+from PyQt5.QtWidgets import QTreeView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 from .platillo import Platillo
 
 class MenuActualModel(QStandardItemModel):
     
-    def __init__(self):
+    def __init__(self, view: QTreeView):
         super().__init__(0, 2)
+
+        self.view = view
 
         self.setHeaderData(0, Qt.Orientation.Horizontal, "")
         self.root = self.invisibleRootItem()
+
+        self.view.setModel(self)
 
     def insertaPlatillo(self, platillo: Platillo, cantidad: int, notas: str):
 
@@ -21,6 +26,8 @@ class MenuActualModel(QStandardItemModel):
 
         self.root.appendRow([item, empty])
         self.dataChanged.emit(item.index(), item.index())
+
+        self.view.expand(item.index())
 
     def setData(self, index, value, role = ...):
         match index.row():
@@ -73,8 +80,8 @@ class ItemOrden(QStandardItem):
 
         self.txtNotas = QStandardItem(self.notas)
         self.txtCantidad = QStandardItem(str(self.cantidad))
-        self.txtPrecio = QStandardItem(str(self.__platillo.Precio))
-        self.txtSubtotal = QStandardItem(str(self.subtotal))
+        self.txtPrecio = self.__labelItem(str(self.platillo.Precio))
+        self.txtSubtotal = self.__labelItem(str(self.subtotal))
         self.txtSubtotal.setEditable(False)
 
         self.setup()

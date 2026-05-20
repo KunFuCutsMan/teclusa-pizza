@@ -24,9 +24,7 @@ class TabOrdenesController:
         self.textoNotas = ""
         self.cantidadPlatillos = 1
 
-        self.modeloOrden = MenuActualModel()
-
-        self.ui.tbl_orden_actual.setModel(self.modeloOrden)
+        self.modeloOrden = MenuActualModel(self.ui.tbl_orden_actual)
 
         self.setupEvents()
 
@@ -61,6 +59,9 @@ class TabOrdenesController:
             platillo=self.platilloSeleccionado,
             cantidad=self.cantidadPlatillos,
             notas=self.textoNotas)
+    
+        self.ui.txt_notas_cliente.setText("")
+        self.ui.spin_cantidad.setValue(1)
 
     def onEliminarPlatilloClick(self):
         pass
